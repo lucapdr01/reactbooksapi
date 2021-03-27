@@ -10,6 +10,8 @@ Each card can be expanded to see more details about the book.
 
 There's an Error page to handle bad sublinks requests.
 
+![](/img/trecard.PNG)
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
