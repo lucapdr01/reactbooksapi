@@ -2,20 +2,20 @@ import React, { useState, useContext, useEffect } from 'react'
 import { useCallback } from 'react'
 import { bookAuthors } from './utils'
 import axios from 'axios';
-
-
+ 
+// App context to share data across modules and pages
 const AppContext = React.createContext()
 
 const AppProvider = ({ children }) => {
   const [loading, setLoading] = useState(true)
-  const [searchTerm, setSearchTerm] = useState('a')
+  const [searchTerm, setSearchTerm] = useState('dante')
   const [books, setBooks] = useState([])
-  const [apiKey, setApiKey] = useState("AIzaSyDr7NU-o9HvgsKSZLwkVVCTvsYE3oaN8aY");
 
+  //function that queries the API and builts an object with the data to pass to components
   const fetchBooks = useCallback( async () => {
     setLoading(true)
     try {
-        axios.get('https://www.googleapis.com/books/v1/volumes?q='+ searchTerm+'&key='+apiKey+'&maxResults=40')
+        axios.get('https://www.googleapis.com/books/v1/volumes?q='+ searchTerm)
         .then(data => {
           console.log(data.data.items);
           if (data.data.items) {
@@ -25,17 +25,16 @@ const AppProvider = ({ children }) => {
                     id,
                 } = item
                  
+                //build the object to deconstruct in components
                 const thumb = volumeInfo.imageLinks && volumeInfo.imageLinks.thumbnail;
 
                 return {
                     id: id,
-                    volumeInfo: volumeInfo, 
                     authors: bookAuthors(volumeInfo.authors),
                     title: volumeInfo.title,
                     thumb: thumb,
                 }
             })
-            console.log('success');
             setBooks(newBooks);
           } else {
             setBooks([])
@@ -47,6 +46,7 @@ const AppProvider = ({ children }) => {
       setLoading(false)
     }
   },[searchTerm])
+
   useEffect(() => {
     fetchBooks()
   }, [searchTerm,fetchBooks])
@@ -56,8 +56,9 @@ const AppProvider = ({ children }) => {
     >
       {children}
     </AppContext.Provider>
-  )
+  ) 
 }
+
 // make sure use
 export const useGlobalContext = () => {
   return useContext(AppContext)

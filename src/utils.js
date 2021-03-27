@@ -1,3 +1,6 @@
+// file containing functions that are usefull in various componets
+// made in order to avoid repetitions
+
 export const bookAuthors = authors => {
     if(authors)
     {

@@ -1,3 +1,15 @@
+# Simple React App to Query Goolge Books API
+
+
+This simple react project consists of a 3 page react app.
+In the Home page using the search bar is possibile to 
+queary google books API and see the results shown as nice
+cards made with react components and some basic css.
+
+Each card can be expanded to see more details about the book.
+
+There's an Error page to handle bad sublinks requests.
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

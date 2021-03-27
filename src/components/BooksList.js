@@ -3,9 +3,10 @@ import Book from './Book'
 import Loading from './Loading'
 import { useGlobalContext } from '../context'
 
+// components that build the list of cards
 export default function BooksList() {
   const { books, loading } = useGlobalContext()
-  if (loading) {
+  if (loading) { 
     return <Loading/>
   }
   if (books.length < 1) {

@@ -4,16 +4,20 @@ import { useParams, Link } from 'react-router-dom'
 import axios from 'axios';
 import { bookAuthors } from '../utils'
 
+// page that shows data of a specific book
 export default function Bookspec() {
+    //get book id
     const { id } = useParams()
     const [loading, setLoading] = React.useState(false)
     const [book, setBook] = React.useState(null)
-    const [apiKey, setApiKey] = useState("AIzaSyDr7NU-o9HvgsKSZLwkVVCTvsYE3oaN8aY");
-    console.log('https://www.googleapis.com/books/v1/volumes/'+id);
+  
+    //console.log('https://www.googleapis.com/books/v1/volumes/'+id);
+    
     React.useEffect(() => {
       setLoading(true)
       async function getBook() {
         try {
+          //get data from this specific book (by passing the unique id)
           axios.get('https://www.googleapis.com/books/v1/volumes/'+id)
           .then(data => {
               console.log(data.data);
@@ -22,11 +26,11 @@ export default function Bookspec() {
                     volumeInfo,
                     id,
                     } = data.data 
+
                 const thumb = volumeInfo.imageLinks && volumeInfo.imageLinks.thumbnail;
                 
                 const newBook = {
                     id: id,
-                    volumeInfo: volumeInfo, 
                     authors: bookAuthors(volumeInfo.authors),
                     title: volumeInfo.title,
                     thumb: thumb,
@@ -35,7 +39,7 @@ export default function Bookspec() {
                     publisher: volumeInfo.publisher,
                 }
                 
-                console.log('success');
+                //console.log('success');
                 setBook(newBook);
               } else {
                 setBook([])
@@ -50,15 +54,16 @@ export default function Bookspec() {
         }
         getBook()
       },[id])
+
     if (loading) {
       return <Loading/>
     }
     if (!book) {
       return <h2 className='section-title'>no book to display</h2>
     } else {
+      //list all values I need
       const {
         id,
-        volumeInfo,
         authors,
         title,
         thumb,
@@ -66,6 +71,7 @@ export default function Bookspec() {
         date,
         publisher
       } = book
+
       return (
         <section className='section page-section'>
           <Link to='/' className='btn btn-primary'>
@@ -73,7 +79,7 @@ export default function Bookspec() {
           </Link>
          <p>
          </p>
-          <div className='page'>
+          <div className='page' key={id}>
               <div className="imagepage-container"> <img src={thumb} alt={title}></img></div>
          
             <div className='page-info'>

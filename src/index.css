@@ -1,4 +1,7 @@
 /* 
+
+All styles are here
+
 ====== 
 Variables 
 ======
@@ -346,7 +349,7 @@ Page
 }
 /* 
 ====== 
-Page
+Loader
 ======
 */
 .loader,
@@ -408,4 +411,17 @@ Page
     box-shadow: 0 -2em;
     height: 5em;
   }
+}
+/* 
+====== 
+Error
+======
+*/
+.error-page {
+  display: flex;
+  justify-content: center;
+}
+.error-container {
+  text-align: center;
+  text-transform: capitalize;
 }
